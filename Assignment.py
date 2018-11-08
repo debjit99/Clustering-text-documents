@@ -221,16 +221,21 @@ def kmeans(n, k, itr):
 
 	error1 = 0
 	error2 = 0
-
+	error3 = 0
+	error4 = 0
 	for i in range(k):
 		for j in cluster[i]:
-			error1 += abs(distance(docs[j], centroids[i]))
+			add = distance(docs[j], centroids[i])
+			error1 += abs(add)
+			error3 = max(error3, add)
 
 	for i in range(k):
 		for j in cluster2[i]:
-			error2 += abs(distance2(j, i, centroidnorm, centroids2))
+			add = distance2(j, i, centroidnorm, centroids2)
+			error4 = max(error4, add)
+			error2 += abs(add)
 
-	return [cluster,cluster2, centroids, error1, error2]
+	return [cluster,cluster2, centroids, error1, error2, error3, error4]
 
 
 def main():
@@ -238,19 +243,25 @@ def main():
 
 	error1 = []
 	error2 = []
+	error3 = []
+	error4 = []
 
-	for k in range(2,21):
+	maxk = 13
+
+	for k in range(2,maxk):
 
 		nc = k
 		filename = "out.kos1." + str(nc) + ".txt"
 		filename1 = "out.kos2." + str(nc) + ".txt"
-		Ans = kmeans(numberdocs, nc, min(max(5,2*nc),30))
+		Ans = kmeans(numberdocs, nc, min(max(5,2*nc),25))
 
 		cluster = Ans[0]
 		cluster2 = Ans[1]
 		centroids = Ans[2]
-		error1.append(Ans[3])
-		error2.append(Ans[4])
+		error1.append(Ans[3]/100)
+		error2.append(Ans[4]/100)
+		error3.append(Ans[5])
+		error4.append(Ans[6]*10)
 		
 
 		file = open(filename, 'w')
@@ -277,11 +288,16 @@ def main():
 		print(time.time() - start)
 		print(error1[k - 2])
 		print(error2[k - 2])
+		print(error3[k - 2])
+		print(error4[k - 2])
 
 		print("done")
 
-	plt.plot([i for i in range(2,21)], error1, color ='r', label = 'Jaccard Measure(Cluster Error)')
-	plt.plot([i for i in range(2,21)], error2, color ='g', label = 'td-idf Measure(Cluster Error)')
+	plt.axis([0,maxk,0,50])
+	plt.plot([i for i in range(2,maxk)], error1, color ='r', label = 'Jaccard Measure(Cluster Error)')
+	plt.plot([i for i in range(2,maxk)], error2, color ='g', label = 'td-idf Measure(Cluster Error)')
+	plt.plot([i for i in range(2,maxk)], error3, color ='b', label = 'Jaccard Measure(Radius)')
+	plt.plot([i for i in range(2,maxk)], error4, color ='y', label = 'td-idf Measure(Radius)')
 	plt.xlabel('Number of Clusters')
 	plt.ylabel('Total Error')
 	plt.title("Error")
