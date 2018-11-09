@@ -31,8 +31,11 @@ While calculating the centroid of the clusters using the Jaccard measure, we tak
 - matplotlib.pyplot - To plot the analysis graphs mentioned above.
 
 ## Analysis of the output
+
+For each of these files we ran the k-means with cluster size 2, 4, 8, 16 and 32. And found out that after 16 clusters most of the cluster we empty. So we decided to plot the errors with cluster size ranging from 2 to 12.
+
 The outputs and analysis for all the three data sets can be found [here](https://github.com/debjit99/Clustering-text-documents).
-However for the sake of analysis here, we only considered the KOS file with $K \in [2, 12]$.
+However for the sake of analysis here, we only considered the KOS file with \(K \in [2, 12]\).
 
 ![Analysis Graph](https://raw.githubusercontent.com/debjit99/Clustering-text-documents/master/Figure_1.png)
 For $K=10$, **tf-idf** gives better results (elbow structure), whereas for $K=11$, gives us a better result for **Jaccard measure**.
@@ -41,5 +44,19 @@ Radius for **tf-idf** is minimum, in these cases, for $K=10$ and that for **Jacc
 
 Error in **Jaccard measure** remains stable, while for the **tf-idf**, the same fluctuates.
 
-We conclude, from the observation of the clusters formed, that **tf-idf** has more stable cluster size than the **Jaccard measure**.
+NIPS file with \(K \in [2, 12]\).
+
+![Analysis Graph](https://raw.githubusercontent.com/debjit99/Clustering-text-documents/master/Figure_1.png)
+For $K=10$, **tf-idf** gives better results (elbow structure), whereas for $K=9$, gives us a better result for **Jaccard measure**.
+
+Radius for **tf-idf** is minimum, in these cases, for $K=10$ and that for **Jaccard measure** almost remains the same throughout.
+
+From these above observation we can say that the number of clusters is indeed 10 and 9 for **tf-idf** and **Jaccard measure** respectively.
+
+Error in **Jaccard measure** remains stable, while for the **tf-idf**, the same fluctuates.
+
+Overall Obseravtion:
+
+There were many empty clusters in **Jaccard measure** which is because it is very biased which is not good for this problem. Were as the **tf-idf** does a good job as the maximum cluster size actually decrease with increasing with the number of clusters. The Radius of the maximum cluster and the error can also help us to determine a better number of cluster size as we saw before.
+
 
