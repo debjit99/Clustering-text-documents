@@ -46,7 +46,7 @@ Error in **Jaccard measure** remains stable, while for the **tf-idf**, the same 
 
 NIPS file with \(K \in [2, 12]\).
 
-![Analysis Graph](https://raw.githubusercontent.com/debjit99/Clustering-text-documents/master/Figure_1.png)
+![Analysis Graph](https://raw.githubusercontent.com/debjit99/Clustering-text-documents/master/Output/NIPS/Figure_1.png)
 For $K=10$, **tf-idf** gives better results (elbow structure), whereas for $K=9$, gives us a better result for **Jaccard measure**.
 
 Radius for **tf-idf** is minimum, in these cases, for $K=10$ and that for **Jaccard measure** almost remains the same throughout.
